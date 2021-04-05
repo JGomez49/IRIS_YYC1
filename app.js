@@ -1,26 +1,36 @@
 
-const cowsay = require('cowsay');
+
 const express = require('express');
+const router = require('./router/rutas');
 const app = express();
+
+require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 
+//Conexion a base de datos
+const mongoose = require('mongoose');
+
+/* const USUARIO = 'MetaUSER';
+const PASSWORD = 'MetaLLAVE';
+const DBNAME = 'MetaDB'; */
+
+const uri = `mongodb+srv://${process.env.USUARIO}:${process.env.PASSWORD}@cluster0.g7lcu.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
+
+mongoose.connect(uri, 
+    { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(()=> console.log('----------------------------------------conectado a mongodb-------------------------------------')) 
+  .catch(e => console.log('error de conexión', e))
+
+//Motor de plantillas
 app.set('view engine','ejs');
 app.set('views' , __dirname + '/views');
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/' , (req,res) => {
-    res.render("index.ejs" , {
-        titulo: "Este es el Titulo EJS"
-    });
-});
-
-app.get('/servicios' , (req, res) => {
-    res.render("servicios.ejs" , {
-        titulo: "Este es el Titulo de Servicios"
-    });
-});
+//Rutas Web
+app.use('/' , require('./router/rutas'));
+app.use('/mascotas' , require('./router/Mascotas'));
 
 app.use((req,res,next) => {
     res.status(404).render("404.ejs" , {
