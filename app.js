@@ -15,10 +15,10 @@ const mongoose = require('mongoose');
 const PASSWORD = 'MetaLLAVE';
 const DBNAME = 'MetaDB'; */
 
-const uri = process.env.MONGODB_URI;
+//const uri = process.env.MONGODB_URI;
 
 //const uri = `mongodb+srv://${process.env.USUARIO}:${process.env.PASSWORD}@cluster0.g7lcu.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-//const uri = mongodb+srv://MetaUSER:MetaLLAVE@cluster0.g7lcu.mongodb.net/MetaDB?retryWrites=true&w=majority;
+const uri = 'mongodb+srv:MetaUSER:MetaLLAVE@cluster0.g7lcu.mongodb.net/MetaDB?retryWrites=true&w=majority';
 
 mongoose.connect(uri, 
     { useNewUrlParser: true, useUnifiedTopology: true })
