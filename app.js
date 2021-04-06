@@ -4,7 +4,7 @@ const express = require('express');
 //const router = require('./router/rutas');
 const app = express();
 
-//require('dotenv').config()
+require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 
