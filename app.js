@@ -4,21 +4,20 @@ const express = require('express');
 //const router = require('./router/rutas');
 const app = express();
 
-require('dotenv').config()
+//require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 
 //Conexion a base de datos
 const mongoose = require('mongoose');
 
-/* const USUARIO = 'MetaUSER';
+const USUARIO = 'MetaUSER';
 const PASSWORD = 'MetaLLAVE';
-const DBNAME = 'MetaDB'; */
+const DBNAME = 'MetaDB';
 
 //const uri = process.env.MONGODB_URI;
-
 //const uri = `mongodb+srv://${process.env.USUARIO}:${process.env.PASSWORD}@cluster0.g7lcu.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-const uri = 'mongodb+srv:MetaUSER:MetaLLAVE@cluster0.g7lcu.mongodb.net/MetaDB?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${USUARIO}:${PASSWORD}@cluster0.g7lcu.mongodb.net/${DBNAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(uri, 
     { useNewUrlParser: true, useUnifiedTopology: true })
