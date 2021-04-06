@@ -1,8 +1,13 @@
-
-
 const express = require('express');
-//const router = require('./router/rutas');
+const bodyParser = require('body-parser');
 const app = express();
+
+// -----Esto es direactamente de la documentacion
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+//------------------------------------------------
 
 require('dotenv').config()
 
@@ -11,14 +16,7 @@ const port = process.env.PORT || 3000;
 //Conexion a base de datos
 const mongoose = require('mongoose');
 
-/* const USUARIO = 'MetaUSER2';
-const PASSWORD = 'NuDmqT4Wl3JJKzen';
-const DBNAME = 'MetaDB'; */
-
 const uri = process.env.MONGODB_URI;
-//const uri = `mongodb+srv://${process.env.USUARIO}:${process.env.PASSWORD}@cluster0.g7lcu.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-//const uri = `mongodb+srv://${USUARIO}:${PASSWORD}@cluster0.g7lcu.mongodb.net/${DBNAME}?retryWrites=true&w=majority`;
-//-----------mongodb+srv://MetaUSER:<password>@cluster0.g7lcu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose.connect(uri, 
     { useNewUrlParser: true, useUnifiedTopology: true })
@@ -45,4 +43,12 @@ app.listen(port, () => {
     console.log('Eschando en el puerto', port);
 });
 
+/*  Como subir el app a heroku:
+    heroku login
+    git add .
+    git commit -am "comment..."
+    git push heroku master 
 
+    para Local:
+    nodemon run dev
+*/

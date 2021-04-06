@@ -3,9 +3,8 @@
 <h1>Mascotas</h1>
 
 <div class="container">
-
+  <a type="submit" class="btn btn-outline-primary" href="/mascotas/nuevo">Crear Nuevo</a>
     <table class="table">
-
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -14,7 +13,6 @@
             <th scope="col">Accion</th>
           </tr>
         </thead>
-
         <tbody>
             <% if (arrayMascotas.length > 0) { %>
                 <% arrayMascotas.forEach(mascota => { %>
@@ -22,13 +20,12 @@
                         <th scope="row"><%= mascota.id %></th>
                         <td><%= mascota.nombre %></td>
                         <td><%= mascota.descripcion %></td>
-                        <td>Accion</td>
+                        <td><a href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</a></td>
                     </tr>
                 <% }) %>
             <% } %>
         </tbody>
       </table>
-
 </div>
 
 <%- include("template/footer") %> 
