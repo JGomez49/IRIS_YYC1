@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
 const USUARIO = 'MetaUSER';
-const PASSWORD = 'MetaLLAVE';
+const PASSWORD = 'NuDmqT4Wl3JJKzen';
 const DBNAME = 'MetaDB';
 
 //const uri = process.env.MONGODB_URI;
