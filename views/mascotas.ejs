@@ -7,7 +7,6 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Accion</th>
@@ -17,7 +16,6 @@
             <% if (arrayMascotas.length > 0) { %>
                 <% arrayMascotas.forEach(mascota => { %>
                     <tr>
-                        <th scope="row"><%= mascota.id %></th>
                         <td><%= mascota.nombre %></td>
                         <td><%= mascota.descripcion %></td>
                         <td><a href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</a></td>

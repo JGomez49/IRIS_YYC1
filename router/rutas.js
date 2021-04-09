@@ -7,11 +7,11 @@ router.get('/' , (req,res) => {
     });
 });
 
-router.get('/servicios' , (req, res) => {
-    res.render("servicios.ejs" , {
-        titulo: "Este es el Titulo de Servicios"
-    });
-});
+// router.get('/servicios' , (req, res) => {
+//     res.render("servicios.ejs" , {
+//         titulo: "Este es el Titulo de Servicios"
+//     });
+// });
 
 /* router.get('/mascotas' , (req, res) => {
     res.render("mascotas.ejs" , {

@@ -1,8 +1,83 @@
 <%- include("template/cabecera") %> 
 
 
-    <h1>Titulo de Web</h1>
-    <h2> <%= titulo %> </h2>
+    <div class="container">
+        <h1 class="text-primary">IR Readings</h1>
+    </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- 1 of 2 -->
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tbody>
+                            <% if (arrayMascotas.length > 0) { %>
+                                <% arrayMascotas.forEach(mascota => { %>
+                                    <tr>
+                                        <td><%= mascota.nombre %></td>
+                                        <td><%= mascota.descripcion %></td>
+                                    </tr>
+                                <% }) %>
+                            <% } %>
+                        </tbody>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col">
+                <!-- 2 of 2 -->
+                <canvas id="miGrafica" width="150" height="100"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- 1 of 3 -->
+            </div>
+            <div class="col">
+                <!-- 2 of 3 -->
+            </div>
+            <div class="col">
+                <!-- 3 of 3 -->
+            </div>
+        </div>
+    </div>
 
-<%- include("template/footer") %> 
+    <!-- ------------------------------------------------------------ -->
+    <script>
+
+            let datosX = [];
+            let datosY = [];
+            var lar = document.getElementsByTagName("td").length
+            var v = document.getElementsByTagName("td");
+            for (i=0; i<lar; i=i+2){ 
+                datosX.push(v[i].innerHTML);
+            }
+           
+            for (i=1; i<lar; i=i+2){ 
+                datosY.push(v[i].innerHTML);
+            }
+         
+            let miCanvas = document.getElementById("miGrafica").getContext('2d');
+            var chart = new Chart(miCanvas, {
+            type: 'line',
+            data: {
+                labels: datosX,
+                datasets: [{
+                    fill: 'origin',
+                    label: "Bebidas",
+                    backgroundColor: "rgb(0,128,255)",
+                    borderColor: "rgb(128,128,128)",
+                    data: datosY
+                    }]
+                }
+            })
+        </script>
+     <!-- ------------------------------------------------------------ -->
+
+<%- include("template/footer") %>

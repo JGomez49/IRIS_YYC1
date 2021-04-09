@@ -32,6 +32,7 @@ app.use(express.static(__dirname + "/public"));
 //Rutas Web
 app.use('/' , require('./router/rutas'));
 app.use('/mascotas' , require('./router/Mascotas'));
+app.use('/servicios' , require('./router/servicios'));
 
 app.use((req,res,next) => {
     res.status(404).render("404.ejs" , {
