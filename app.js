@@ -49,7 +49,14 @@ app.listen(port, () => {
     git add .
     git commit -am "comment..."
     git push heroku master 
-
     para Local:
     nodemon run dev
 */
+
+// echo "# ejstestoneamz" >> README.md
+// git init
+// git add README.md
+// git commit -m "first commit"
+// git branch -M main
+// git remote add origin https://github.com/JGomez49/ejstestoneamz.git
+// git push -u origin main

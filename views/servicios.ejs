@@ -3,9 +3,20 @@
 
     <div class="container">
         <h1 class="text-primary">IR Readings</h1>
-    </div>
 
-    <div class="container">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Select Lane
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Pack Lane 1</a></li>
+              <li><a class="dropdown-item" href="#">Pack Lane 2</a></li>
+              <li><a class="dropdown-item" href="#">Pack Lane 3</a></li>
+            </ul>
+          </div>
+    </div>
+ 
+    <div class="container" >
         <div class="row">
             <div class="col">
                 <!-- 1 of 2 -->
@@ -13,7 +24,9 @@
                     <thead>
                       <tr>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripcion</th>
+                        <th scope="col">NDE</th>
+                        <th scope="col">DE</th>
+                        <th scope="col">GOB</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -22,7 +35,9 @@
                                 <% arrayMascotas.forEach(mascota => { %>
                                     <tr>
                                         <td><%= mascota.nombre %></td>
-                                        <td><%= mascota.descripcion %></td>
+                                        <td><%= mascota.NDE %></td>
+                                        <td><%= mascota.DE %></td>
+                                        <td><%= mascota.GOB %></td>
                                     </tr>
                                 <% }) %>
                             <% } %>
@@ -47,37 +62,83 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- ------------------------------------------------------------ -->
     <script>
-
             let datosX = [];
-            let datosY = [];
-            var lar = document.getElementsByTagName("td").length
+            let datosNDE = [];
+            let datosDE = [];
+            let datosGOB = [];
+            var col = document.getElementsByTagName("th").length
+            console.log("Columnas: " + col);
             var v = document.getElementsByTagName("td");
-            for (i=0; i<lar; i=i+2){ 
+            var celdas = v.length
+            var fil = celdas/col
+            // console.log("celdas: " + celdas);
+            // console.log("filas: " + fil);
+            
+            for (i=0; i<celdas; i=i+col){ 
                 datosX.push(v[i].innerHTML);
             }
+            // console.log(datosX);
            
-            for (i=1; i<lar; i=i+2){ 
-                datosY.push(v[i].innerHTML);
+            for (i=1; i<celdas; i=i+col){ 
+                datosNDE.push(v[i].innerHTML);
             }
+            // console.log(datosNDE);
+            for (i=2; i<celdas; i=i+col){ 
+                datosDE.push(v[i].innerHTML);
+            }
+            // console.log(datosDE);
+            for (i=3; i<celdas; i=i+col){ 
+                datosGOB.push(v[i].innerHTML);
+            }
+            // console.log(datosDE);
          
             let miCanvas = document.getElementById("miGrafica").getContext('2d');
             var chart = new Chart(miCanvas, {
             type: 'line',
             data: {
                 labels: datosX,
-                datasets: [{
-                    fill: 'origin',
-                    label: "Bebidas",
+                datasets: [
+                    {
+                    // fill: 'origin',
+                    label: "NDE",
                     backgroundColor: "rgb(0,128,255)",
-                    borderColor: "rgb(128,128,128)",
-                    data: datosY
-                    }]
-                }
-            })
+                    borderColor: "rgb(0,0,255)",
+                    data: datosNDE,
+                    fill: "origin",
+                    tension: 0.3
+                    },
+                    {
+                    // fill: 'origin',
+                    label: "DE",
+                    backgroundColor: "rgba(0,70,70,1)",
+                    borderColor: "rgb(28,28,28)",
+                    data: datosDE,
+                    fill: 'origin',
+                    tension: 0.3
+                    },
+                    {
+                    // fill: 'origin',
+                    label: "GOB",
+                    backgroundColor: "rgba(60,60,60,0.5)",
+                    borderColor: "rgba(255,0,0,1)",
+                    data: datosGOB,
+                    fill: 'origin',
+                    tension: 0.3
+                    }]   
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                            }
+                        }
+                    }
+                } 
+            )
         </script>
      <!-- ------------------------------------------------------------ -->
 
-<%- include("template/footer") %>
+<%- include("template/footer") %> 

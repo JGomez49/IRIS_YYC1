@@ -1,14 +1,19 @@
+
 <%- include("template/cabecera") %> 
 
-<h1>Mascotas</h1>
+<!-- <h1>Mascotas</h1> -->
 
 <div class="container">
   <a type="submit" class="btn btn-outline-primary" href="/mascotas/nuevo">Crear Nuevo</a>
     <table class="table">
         <thead>
           <tr>
+            <!-- <th scope="col">#</th> -->
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
+            <th scope="col">NDE</th>
+            <th scope="col">DE</th>
+            <th scope="col">GOB</th>
             <th scope="col">Accion</th>
           </tr>
         </thead>
@@ -16,8 +21,12 @@
             <% if (arrayMascotas.length > 0) { %>
                 <% arrayMascotas.forEach(mascota => { %>
                     <tr>
+                        <!-- <th scope="row"><%= mascota.id %></th> -->
                         <td><%= mascota.nombre %></td>
                         <td><%= mascota.descripcion %></td>
+                        <td><%= mascota.NDE %></td>
+                        <td><%= mascota.DE %></td>
+                        <td><%= mascota.GOB %></td>
                         <td><a href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</a></td>
                     </tr>
                 <% }) %>

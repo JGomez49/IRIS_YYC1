@@ -16,9 +16,11 @@
             <form id="formularioEditar" data-id="<%= mascota.id %>">
                     <input type="text" name="nombre" id="nombreInput" class="form-control my-2" value="<%= mascota.nombre %>">
                     <input type="text" name="descripcion" id="descripcionInput" class="form-control my-2" value="<%= mascota.descripcion %>">
+                    <input type="text" name="NDE" id="NDEInput" class="form-control my-2" value="<%= mascota.NDE %>">
+                    <input type="text" name="DE" id="DEInput" class="form-control my-2" value="<%= mascota.DE %>">
+                    <input type="text" name="GOB" id="GOBInput" class="form-control my-2" value="<%= mascota.GOB %>">
                     <button type="submit" href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</button>
             </form>
-
             <div>
                 <button id="btnEliminar" data-id="<%= mascota.id %>" class="btn btn-outline-danger my-2">Eliminar</button>
             </div>
@@ -32,7 +34,6 @@
 <%- include("template/footer") %> 
 
 <script>
-
     const btnEliminar = document.querySelector('#btnEliminar')
     btnEliminar.addEventListener('click', async() => {
         try {          
@@ -49,16 +50,12 @@
             console.log(error) 
         }
     })
-
 const formularioEditar = document.querySelector('#formularioEditar')
-
 formularioEditar.addEventListener('submit', async(e) => {
     e.preventDefault
-
     const nombre = formularioEditar.elements['nombre'].value
     const descripcion = document.querySelector('#descripcionInput').value
     const id = formularioEditar.dataset.id 
-
     try {
         const data = await fetch(`/mascotas/${id}`, {
         method: 'PUT',
@@ -79,5 +76,4 @@ formularioEditar.addEventListener('submit', async(e) => {
         console.log(error)
     }
 })
-
 </script>

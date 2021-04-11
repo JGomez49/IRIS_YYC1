@@ -13,10 +13,4 @@ router.get('/' , (req,res) => {
 //     });
 // });
 
-/* router.get('/mascotas' , (req, res) => {
-    res.render("mascotas.ejs" , {
-        titulo: "Son Mascotas"
-    });
-}); */
-
 module.exports = router;
