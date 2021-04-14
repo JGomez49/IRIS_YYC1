@@ -3,18 +3,38 @@
 
 <div class="container">
 
-    <h1>Nuevo</h1>
-
+    <h1>New Reading</h1>
+    <h5>Motor: <%= MTR %></h5>
+    <h5 id="laneTitle"><%= LANE %></h5>
+    <h5>Tech: <%= TECH  %></h5>
+    <h5>Date: <%= new Date().toLocaleDateString() %></h5>
+    <h5>Work Order: <%= WO %> </h5>
+    <!-- <h5><%= arrayMascotas %></h5> -->
+    
     <form action="/mascotas" method="POST">
-        <input type="text" name="nombre" id="" placeholder="Nombre" class="form-control my-2">
-        <input type="text" name="descripcion" id="" placeholder="Descripcion" class="form-control my-2">
-        <input type="text" name="NDE" id="" placeholder="NDE" class="form-control my-2">
-        <input type="text" name="DE" id="" placeholder="DE" class="form-control my-2">
-        <input type="text" name="GOB" id="" placeholder="GOB" class="form-control my-2">
-        <button type="submit" class="btn btn-outline-primary">Crear Nuevo</button>
+        <input type="text" name="MTR" id="MTR" placeholder="MTR" class="form-control my-2" value= <%= MTR %> disabled>
+        <input type="text" name="TECH" id="TECH" placeholder="Technician" class="form-control my-2" value= <%= TECH %> disabled>
+        <input type="text" name="DATE" id="DATE" placeholder="Date" class="form-control my-2" value= <%= new Date().toLocaleDateString() %> disabled>
+        <input type="text" name="WO" id="WO" placeholder="Work Order" class="form-control my-2" value=<%= WO %> disabled>
+        <input type="text" name="LANE" id="LANE" placeholder="Lane" class="form-control my-2" disabled>
+        <input type="text" name="NDE" id="NDE" placeholder="NDE" class="form-control my-2">
+        <input type="text" name="DE" id="DE" placeholder="DE" class="form-control my-2">
+        <input type="text" name="GOB" id="GOB" placeholder="GOB" class="form-control my-2">
+        <button type="submit" class="btn btn-outline-primary">Create New</button>
     </form>
 
-</div>
-    
+    <script>
+        const laneVal = document.getElementById("laneTitle").innerHTML
+        const laneInput = document.getElementById("LANE")
+        laneInput.value = laneVal
+
+        document.getElementById('MTR').style.backgroundColor="rgb(140,140,140)";
+        document.getElementById('TECH').style.backgroundColor="rgb(140,140,140)";
+        document.getElementById('DATE').style.backgroundColor="rgb(140,140,140)";
+        document.getElementById('LANE').style.backgroundColor="rgb(140,140,140)";
+        document.getElementById('WO').style.backgroundColor="rgb(140,140,140)";
+
+    </script>
 
 <%- include("template/footer") %> 
+

@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 const Mascota = require("../models/mascota");
 
+
+
 router.get("/", async (req, res) => {
   try {
     const arrayMascotasDB = await Mascota.find();
@@ -14,9 +16,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get('/nuevo', (req,res) => {
-  res.render('nuevo');
-});
+
+// router.get('/nuevo', (req,res) => {
+//   try {
+//     // const arrayMascotasDB = await Mascota.find();
+//     res.render("nuevo", {})
+// } catch (error) {
+//   console.log(error);
+//   }
+//   });
+
 
 router.post('/', async(req,res) => {
   const infoNuevo = req.body;
@@ -25,23 +34,22 @@ router.post('/', async(req,res) => {
     // const mascotaDB = new Mascota(infoNuevo);
     // await mascotaDB.save();
     //-------------------------------------------------
-
     //----- Opcion 2 ----------------------------------
     await Mascota.create(infoNuevo);
     //-------------------------------------------------
-
     res.redirect('/mascotas');
-
   } catch (error) {
     console.log(error);
   }
 });
 
+
+
 router.get('/:id', async(req,res) => {
   const id = req.params.id
   try {   
     const mascotaDB = await Mascota.findOne({_id: id});
-    console.log(mascotaDB);
+    // console.log(mascotaDB);
     res.render('detalle', {
       mascota: mascotaDB,
       error: false
@@ -54,6 +62,8 @@ router.get('/:id', async(req,res) => {
     });
   }
 });
+
+
 
 router.delete('/:id', async(req,res) => {
   const id = req.params.id
@@ -80,7 +90,7 @@ router.put('/:id', async(req,res) => {
   const infoActualizar = req.body
   try {
     mascotaDB = await Mascota.findByIdAndUpdate(id, infoActualizar, {useFindAndModify: false})
-    console.log(mascotaDB)
+    // console.log(mascotaDB)
     res.json ({
       estado: true,
       mensaje: "Mascota editada"

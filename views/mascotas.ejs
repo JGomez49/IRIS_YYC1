@@ -1,38 +1,171 @@
+<%- include("template/cabecera") %>
 
-<%- include("template/cabecera") %> 
+<!-- <div class="container"> -->
+  <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+  <div class="row">
+    <div class="col-md-2" style="background-color:black;">
+      <!-- .col-md-2 -->
+      <div class="container">
+      <p></p>
+      <select class="form-select" aria-label="Default select example" id="laneSelector">
+        <option selected>Select a Lane</option>
+        <option value="Pack Lane 1">Pack Lane 1</option>
+        <option value="Pack Lane 2">Pack Lane 2</option>
+        <option value="Pack Lane 3">Pack Lane 3</option>
+      </select>
+      <p></p>
 
-<!-- <h1>Mascotas</h1> -->
+      <p></p>
+      <select class="form-select" aria-label="Default select example" id="motorSelector">
+        <option selected>Select a Motor</option>
+      </select>
+      <p></p>
 
-<div class="container">
-  <a type="submit" class="btn btn-outline-primary" href="/mascotas/nuevo">Crear Nuevo</a>
-    <table class="table">
+      <p></p>
+        <a class="btn btn-outline-info" id="btnCurves">Just check the curves</a>
+      <p></p>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"> @ </span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" id="techSelector">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">WO</span>
+        <input type="text" class="form-control" placeholder="Work Order" aria-label="WorkOrder" aria-describedby="basic-addon1" id="woSelector">
+      </div>
+
+      <p></p>
+        <a class="btn btn-outline-info" id="btnOK">I have a work order</a>
+      <p></p>
+
+
+    </div>
+  </div>
+
+    <div class="col-6 col-md-10" style="background-color:black;">
+      <!-- .col-6 .col-md-8 -->
+      <table class="table" style="color:white;">
         <thead>
           <tr>
             <!-- <th scope="col">#</th> -->
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">MTR</th>
+            <th scope="col">Tech</th>
+            <th scope="col">Date</th>
+            <th scope="col">Work Order</th>
+            <th scope="col">Lane</th>
             <th scope="col">NDE</th>
             <th scope="col">DE</th>
             <th scope="col">GOB</th>
-            <th scope="col">Accion</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-            <% if (arrayMascotas.length > 0) { %>
-                <% arrayMascotas.forEach(mascota => { %>
-                    <tr>
-                        <!-- <th scope="row"><%= mascota.id %></th> -->
-                        <td><%= mascota.nombre %></td>
-                        <td><%= mascota.descripcion %></td>
-                        <td><%= mascota.NDE %></td>
-                        <td><%= mascota.DE %></td>
-                        <td><%= mascota.GOB %></td>
-                        <td><a href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</a></td>
-                    </tr>
-                <% }) %>
-            <% } %>
+          <% if (arrayMascotas.length > 0) { %> 
+            <% arrayMascotas.forEach(mascota => { %>
+              <tr>
+              <!-- <th scope="row"><%= mascota.id %></th> -->
+              <td><%= mascota.MTR %></td>
+              <td><%= mascota.TECH %></td>
+              <td><%= mascota.DATE %></td>
+              <td><%= mascota.WO %></td>
+              <td><%= mascota.LANE %></td>
+              <td><%= mascota.NDE %></td>
+              <td><%= mascota.DE %></td>
+              <td><%= mascota.GOB %></td>
+              <td><a href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Edit</a></td>
+            </tr>
+            <% }) %> 
+          <% } %>
         </tbody>
       </table>
-</div>
+    </div>
+  </div>
+<!-- </div> -->
 
-<%- include("template/footer") %> 
+
+<script>
+  document.getElementById("laneSelector").addEventListener('change', () => {
+    const LANE = document.getElementById("laneSelector").value
+    console.log(LANE);
+
+    if (LANE === "Pack Lane 1") {
+      const MTRmenu = document.getElementById("motorSelector");
+
+      var options = document.querySelectorAll('#motorSelector option');
+      options.forEach(o => o.remove());
+      
+      var option = document.createElement('option');
+      option.text = option.value = "MTR0001";
+      MTRmenu.add(option, 0);
+
+      option = document.createElement('option');
+      option.text = option.value = "MTR0002";
+      MTRmenu.add(option, 1);   
+    }
+  
+
+  if (LANE === "Pack Lane 2") {
+      const MTRmenu = document.getElementById("motorSelector");
+      
+      var options = document.querySelectorAll('#motorSelector option');
+      options.forEach(o => o.remove());
+      
+      var option = document.createElement('option');
+      option.text = option.value = "MTR0003";
+      MTRmenu.add(option, 0);
+
+      option = document.createElement('option');
+      option.text = option.value = "MTR0004";
+      MTRmenu.add(option, 1);  
+    }
+
+
+    if (LANE === "Pack Lane 3") {
+      const MTRmenu = document.getElementById("motorSelector");
+      
+      var options = document.querySelectorAll('#motorSelector option');
+      options.forEach(o => o.remove());
+      
+      var option = document.createElement('option');
+      option.text = option.value = "MTR0005";
+      MTRmenu.add(option, 0);
+
+      option = document.createElement('option');
+      option.text = option.value = "MTR0006";
+      MTRmenu.add(option, 1);  
+    }
+
+
+  })
+
+  const btnOK = document.getElementById("btnOK");
+  btnOK.addEventListener('click', async() => {
+    const MTR = document.getElementById("motorSelector").value;
+    const LANE = document.getElementById("laneSelector").value;
+    const TECH = document.getElementById("techSelector").value;
+    const WO = document.getElementById("woSelector").value;
+    if (MTR==="Select a Motor" || LANE==="Select a LANE" || TECH==="" || WO==="") {
+      alert('Select Motor, Lane, Work Order and enter an User to continue.')
+    } else {
+      window.location.href = `servicios/${MTR}/${LANE}/${TECH}/${WO}`
+    }
+  })
+
+
+    const btnCurves = document.getElementById("btnCurves");
+    btnCurves.addEventListener('click', async() => {
+      const MTR = document.getElementById("motorSelector").value;
+      const LANE = document.getElementById("laneSelector").value;
+      const TECH = "TestTECH" //document.getElementById("techSelector").value;
+      const WO = "TestWO" //document.getElementById("woSelector").value;
+      if (MTR==="Select a Motor" || LANE==="Select a LANE") {
+        alert('Select Motor and a Lane to continue.')
+      } else {
+        window.location.href = `servicios/${MTR}/${LANE}/${TECH}/${WO}`
+    }  
+  })
+
+</script>
+
+<%- include("template/footer") %>

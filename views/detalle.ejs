@@ -1,39 +1,63 @@
 <%- include("template/cabecera", {titulo: 'Detalle'}) %> 
 
 <div class="container">
+    <h1>Edit Details</h1>
+    <!-- <h2><%= mascota.id %></h2> -->
 
-    <h1>Detalle</h1>
-
-    <% if (error) { %>
-        <p>
-            <%= mensaje %> 
-        </p>
-        <a class="btn btn-outline-primary" href="/mascotas">Volver a mascotas</a>
-    <% } %>
-    
-    <% if (!error) { %>
-        <p>
-            <form id="formularioEditar" data-id="<%= mascota.id %>">
-                    <input type="text" name="nombre" id="nombreInput" class="form-control my-2" value="<%= mascota.nombre %>">
-                    <input type="text" name="descripcion" id="descripcionInput" class="form-control my-2" value="<%= mascota.descripcion %>">
-                    <input type="text" name="NDE" id="NDEInput" class="form-control my-2" value="<%= mascota.NDE %>">
-                    <input type="text" name="DE" id="DEInput" class="form-control my-2" value="<%= mascota.DE %>">
-                    <input type="text" name="GOB" id="GOBInput" class="form-control my-2" value="<%= mascota.GOB %>">
-                    <button type="submit" href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">Editar</button>
-            </form>
+    <div class="row">
+        <div class="col">
+            <!-- 1 of 2 -->
+            <% if (error) { %>
+                <p>
+                    <%= mensaje %> 
+                </p>
+                <a class="btn btn-outline-primary" href="/mascotas">Cancel</a>
+            <% } %>
+            
+            <% if (!error) { %>
+                <p>
+                    <form id="formularioEditar" data-id="<%= mascota.id %>">
+                        <input type="text" name="MTR" id="MTRInput" class="form-control my-2" value="<%= mascota.MTR %>"> 
+                        <input type="text" name="TECH" id="TECHInput" class="form-control my-2" value="<%= mascota.TECH %>">
+                        <input type="text" name="DATE" id="DATEInput" class="form-control my-2" value="<%= mascota.DATE %>">
+                        <input type="text" name="WO" id="WOInput" class="form-control my-2" value="<%= mascota.WO %>">
+                        <input type="text" name="LANE" id="LANEInput" class="form-control my-2" value="<%= mascota.LANE %>">
+                        <input type="text" name="NDE" id="NDEInput" class="form-control my-2" value="<%= mascota.NDE %>">
+                        <input type="text" name="DE" id="DEInput" class="form-control my-2" value="<%= mascota.DE %>">
+                        <input type="text" name="GOB" id="GOBInput" class="form-control my-2" value="<%= mascota.GOB %>">
+                        <button type="submit" href="/mascotas/<%= mascota.id %>" class="btn btn-outline-info">OK</button>
+                        <a class="btn btn-outline-primary my-2" href="/mascotas">Cancel</a>
+                        <button id="btnEliminar" data-id="<%= mascota.id %>" class="btn btn-outline-danger my-2">Delete</button>
+                    </form>
+                </p>
+                <!-- <a class="btn btn-outline-primary my-2" href="/mascotas">Cancel</a> -->
+            <% } %>
+        </div>
+        <div class="col">
+            <!-- 2 of 2 -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <!-- 1 of 3 -->
             <div>
-                <button id="btnEliminar" data-id="<%= mascota.id %>" class="btn btn-outline-danger my-2">Eliminar</button>
+                <!-- <button id="btnEliminar" data-id="<%= mascota.id %>" class="btn btn-outline-danger my-2">Delete</button> -->
             </div>
-        </p>
-        <a class="btn btn-outline-primary my-2" href="/mascotas">Cancel</a>
-    <% } %>
-
+        </div>
+        <div class="col">
+            <!-- 2 of 3 -->
+        </div>
+        <div class="col">
+            <!-- 3 of 3 -->
+        </div>
+    </div>
 </div>
-    
 
-<%- include("template/footer") %> 
+
+
 
 <script>
+    // ------------------------------------Borrar------------------------------------------------
     const btnEliminar = document.querySelector('#btnEliminar')
     btnEliminar.addEventListener('click', async() => {
         try {          
@@ -50,12 +74,21 @@
             console.log(error) 
         }
     })
-const formularioEditar = document.querySelector('#formularioEditar')
-formularioEditar.addEventListener('submit', async(e) => {
+    //==========================================================================================
+
+    //------------------------------------Editar------------------------------------------------
+    const formularioEditar = document.querySelector('#formularioEditar')
+    formularioEditar.addEventListener('submit', async(e) => {
     e.preventDefault
-    const nombre = formularioEditar.elements['nombre'].value
-    const descripcion = document.querySelector('#descripcionInput').value
-    const id = formularioEditar.dataset.id 
+    const id = formularioEditar.dataset.id
+    const MTR = formularioEditar.elements['MTR'].value
+    const TECH = document.querySelector('#TECHInput').value
+    const DATE = document.querySelector('#DATEInput').value
+    const WO = document.querySelector('#WOInput').value
+    const LANE = document.querySelector('#LANEInput').value
+    const NDE = document.querySelector('#NDEInput').value
+    const DE = document.querySelector('#DEInput').value
+    const GOB = document.querySelector('#GOBInput').value
     try {
         const data = await fetch(`/mascotas/${id}`, {
         method: 'PUT',
@@ -63,7 +96,16 @@ formularioEditar.addEventListener('submit', async(e) => {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({nombre, descripcion})
+        body: JSON.stringify({
+            MTR, 
+            TECH,
+            DATE,
+            WO,
+            LANE,
+            NDE,
+            DE,
+            GOB
+        })
     })
         const res = await data.json()
             console.log(res)
@@ -74,6 +116,11 @@ formularioEditar.addEventListener('submit', async(e) => {
             }
     } catch (error) {
         console.log(error)
-    }
-})
+        }
+    })
+    //==========================================================================================
 </script>
+    
+<%- include("template/footer") %> 
+
+

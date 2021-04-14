@@ -1,29 +1,29 @@
 <%- include("template/cabecera") %> 
 
 
-    <div class="container">
-        <h1 class="text-primary">IR Readings</h1>
-
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Lane
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Pack Lane 1</a></li>
-              <li><a class="dropdown-item" href="#">Pack Lane 2</a></li>
-              <li><a class="dropdown-item" href="#">Pack Lane 3</a></li>
-            </ul>
-          </div>
-    </div>
+<div class="container-fluid">
+    <h1 class="text-primary">IR Readings</h1>
+    <h5 id="motorTitle"><%= MTR %> </h5>
+    <h5 id="laneTitle"><%= LANE %> </h5>
+    <h5 id="techTitle"><%= TECH %> </h5>
+    <h5 id="woTitle"><%= WO %> </h5>
+    <!-- <h5><%= arrayMascotas  %> </h5> -->
+    <!-- <a type="submit" class="btn btn-outline-primary" href="/mascotas/nuevo">New Reading</a> -->
+    <a class="btn btn-outline-primary" id="btnNEW">New Reading</a>
+</div>
  
-    <div class="container" >
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <!-- 1 of 2 -->
-                <table class="table">
+                <table class="table" style="color: white;">
                     <thead>
                       <tr>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">MTR</th>
+                        <th scope="col">Tech</th>
+                        <th scope="col">Date</th>
+                        <!-- <th scope="col">Work Order</th>
+                        <th scope="col">Lane</th> -->
                         <th scope="col">NDE</th>
                         <th scope="col">DE</th>
                         <th scope="col">GOB</th>
@@ -33,12 +33,20 @@
                         <tbody>
                             <% if (arrayMascotas.length > 0) { %>
                                 <% arrayMascotas.forEach(mascota => { %>
-                                    <tr>
-                                        <td><%= mascota.nombre %></td>
-                                        <td><%= mascota.NDE %></td>
-                                        <td><%= mascota.DE %></td>
-                                        <td><%= mascota.GOB %></td>
-                                    </tr>
+                                    <% if (mascota.MTR === MTR) { %>
+                                    
+                                        <tr>
+                                            <td><%= mascota.MTR %></td>
+                                            <td><%= mascota.TECH %></td>
+                                            <td><%= mascota.DATE %></td>
+                                            <!-- <td><%= mascota.WO %></td>
+                                            <td><%= mascota.LANE %></td> -->
+                                            <td><%= mascota.NDE %></td>
+                                            <td><%= mascota.DE %></td>
+                                            <td><%= mascota.GOB %></td>
+                                        </tr>
+                                    
+                                    <% } %>
                                 <% }) %>
                             <% } %>
                         </tbody>
@@ -47,7 +55,7 @@
             </div>
             <div class="col">
                 <!-- 2 of 2 -->
-                <canvas id="miGrafica" width="150" height="100"></canvas>
+                <canvas id="miGrafica" width="300" height="200"></canvas>
             </div>
         </div>
         <div class="row">
@@ -63,37 +71,42 @@
         </div>
     </div>
  
-    <!-- ------------------------------------------------------------ -->
+
+
     <script>
             let datosX = [];
             let datosNDE = [];
             let datosDE = [];
             let datosGOB = [];
+
             var col = document.getElementsByTagName("th").length
-            console.log("Columnas: " + col);
             var v = document.getElementsByTagName("td");
             var celdas = v.length
             var fil = celdas/col
-            // console.log("celdas: " + celdas);
-            // console.log("filas: " + fil);
+
+            console.log("Columnas: " + col);
+            console.log("celdas: " + celdas);
+            console.log("filas: " + fil);
             
-            for (i=0; i<celdas; i=i+col){ 
+            for (i=2; i<celdas; i=i+col){ 
                 datosX.push(v[i].innerHTML);
             }
-            // console.log(datosX);
+            console.log("datosX: " + datosX);
            
-            for (i=1; i<celdas; i=i+col){ 
+            for (i=3; i<celdas; i=i+col){ 
                 datosNDE.push(v[i].innerHTML);
             }
-            // console.log(datosNDE);
-            for (i=2; i<celdas; i=i+col){ 
+            console.log("datosNDE: " + datosNDE);
+
+            for (i=4; i<celdas; i=i+col){ 
                 datosDE.push(v[i].innerHTML);
             }
-            // console.log(datosDE);
-            for (i=3; i<celdas; i=i+col){ 
+            console.log("datosDE: " + datosDE);
+
+            for (i=5; i<celdas; i=i+col){ 
                 datosGOB.push(v[i].innerHTML);
             }
-            // console.log(datosDE);
+            console.log("datosGOB: " + datosGOB);
          
             let miCanvas = document.getElementById("miGrafica").getContext('2d');
             var chart = new Chart(miCanvas, {
@@ -102,7 +115,6 @@
                 labels: datosX,
                 datasets: [
                     {
-                    // fill: 'origin',
                     label: "NDE",
                     backgroundColor: "rgb(0,128,255)",
                     borderColor: "rgb(0,0,255)",
@@ -111,7 +123,6 @@
                     tension: 0.3
                     },
                     {
-                    // fill: 'origin',
                     label: "DE",
                     backgroundColor: "rgba(0,70,70,1)",
                     borderColor: "rgb(28,28,28)",
@@ -120,7 +131,6 @@
                     tension: 0.3
                     },
                     {
-                    // fill: 'origin',
                     label: "GOB",
                     backgroundColor: "rgba(60,60,60,0.5)",
                     borderColor: "rgba(255,0,0,1)",
@@ -130,15 +140,62 @@
                     }]   
                 },
                 options: {
+                    Plugins:{
+                        tooltip:{
+                            callbacks:{
+                                label: function(context) {
+                                    var label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Celsius Deg"
+                            }
+                            }
+                        },
+                        x:{
+                            ticks: true,
+                            title: {
+                                display: true,
+                                text: "time"
                             }
                         }
                     }
                 } 
             )
-        </script>
-     <!-- ------------------------------------------------------------ -->
+
+            const TECH = document.getElementById('techTitle').innerHTML;
+            const WO = document.getElementById('woTitle').innerHTML;
+            const btnNEW = document.getElementById("btnNEW");
+            if (TECH === "TestTECH " || WO === "TestWO ") {
+                document.getElementById('btnNEW').remove();
+                document.getElementById('techTitle').remove();
+                document.getElementById('woTitle').remove();
+            }
+            
+            
+            btnNEW.addEventListener('click', async() => {
+                const MTR = document.getElementById('motorTitle').innerHTML;
+                const LANE = document.getElementById('laneTitle').innerHTML;
+                const TECH = document.getElementById('techTitle').innerHTML;
+                const WO = document.getElementById('woTitle').innerHTML;
+                window.location.href = `/servicios/${MTR}/${LANE}/${TECH}/${WO}/nuevo`          
+        })
+
+
+    </script>
+
 
 <%- include("template/footer") %> 

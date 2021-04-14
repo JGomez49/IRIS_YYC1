@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/' , (req,res) => {
-    res.render("index.ejs" , {
-        titulo: "Este es el Titulo EJS"
-    });
+    // res.render("index.ejs" , {});
+    res.redirect('/mascotas');
 });
 
 // router.get('/servicios' , (req, res) => {
