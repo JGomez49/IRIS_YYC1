@@ -3,10 +3,10 @@
 
 <div class="container-fluid">
     <h1 class="text-primary">IR Readings</h1>
-    <h5 id="motorTitle"><%= MTR %> </h5>
-    <h5 id="laneTitle"><%= LANE %> </h5>
-    <h5 id="techTitle"><%= TECH %> </h5>
-    <h5 id="woTitle"><%= WO %> </h5>
+    <h5 id="motorTitle"><%= MTR %></h5>
+    <h5 id="laneTitle"><%= LANE %></h5>
+    <h5 id="techTitle"><%= TECH %></h5>
+    <h5 id="woTitle"><%= WO %></h5>
     <!-- <h5><%= arrayMascotas  %> </h5> -->
     <!-- <a type="submit" class="btn btn-outline-primary" href="/mascotas/nuevo">New Reading</a> -->
     <a class="btn btn-outline-primary" id="btnNEW">New Reading</a>
@@ -16,10 +16,16 @@
         <div class="row">
             <div class="col">
                 <!-- 1 of 2 -->
+                <canvas id="miGrafica" width="300" height="200"></canvas>
+                
+            </div>
+            <div class="col">
+                <!-- 2 of 2 -->
+                <!-- <canvas id="miGrafica" width="300" height="200"></canvas> -->
                 <table class="table" style="color: white;">
                     <thead>
                       <tr>
-                        <th scope="col">MTR</th>
+                        <!-- <th scope="col">MTR</th> -->
                         <th scope="col">TECH</th>
                         <th scope="col">DATE</th>
                         <!-- <th scope="col">Work Order</th>
@@ -36,7 +42,7 @@
                                     <% if (mascota.MTR === MTR) { %>
                                     
                                         <tr>
-                                            <td><%= mascota.MTR %></td>
+                                            <!-- <td><%= mascota.MTR %></td> -->
                                             <td><%= mascota.TECH %></td>
                                             <td><%= mascota.DATE %></td>
                                             <!-- <td><%= mascota.WO %></td>
@@ -51,11 +57,7 @@
                             <% } %>
                         </tbody>
                     </tbody>
-                  </table>
-            </div>
-            <div class="col">
-                <!-- 2 of 2 -->
-                <canvas id="miGrafica" width="300" height="200"></canvas>
+                </table>
             </div>
         </div>
         <div class="row">
@@ -88,22 +90,22 @@
             console.log("celdas: " + celdas);
             console.log("filas: " + fil);
             
-            for (i=2; i<celdas; i=i+col){ 
+            for (i=1; i<celdas; i=i+col){ 
                 datosX.push(v[i].innerHTML);
             }
             console.log("datosX: " + datosX);
            
-            for (i=3; i<celdas; i=i+col){ 
+            for (i=2; i<celdas; i=i+col){ 
                 datosNDE.push(v[i].innerHTML);
             }
             console.log("datosNDE: " + datosNDE);
 
-            for (i=4; i<celdas; i=i+col){ 
+            for (i=3; i<celdas; i=i+col){ 
                 datosDE.push(v[i].innerHTML);
             }
             console.log("datosDE: " + datosDE);
 
-            for (i=5; i<celdas; i=i+col){ 
+            for (i=4; i<celdas; i=i+col){ 
                 datosGOB.push(v[i].innerHTML);
             }
             console.log("datosGOB: " + datosGOB);
@@ -179,7 +181,7 @@
             const TECH = document.getElementById('techTitle').innerHTML;
             const WO = document.getElementById('woTitle').innerHTML;
             const btnNEW = document.getElementById("btnNEW");
-            if (TECH === "TestTECH " || WO === "TestWO ") {
+            if (TECH === "TestTECH" || WO === "TestWO") {
                 document.getElementById('btnNEW').remove();
                 document.getElementById('techTitle').remove();
                 document.getElementById('woTitle').remove();
